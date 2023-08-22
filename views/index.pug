@@ -3,5 +3,18 @@ extends layout
 block content
   h1 Secret Tea party
   p Welcome to the secret tea party
-  if user
-    p Logged in
+  if messages.length > 0
+    ul.list-group
+      each message in messages
+        li.list-group-item 
+          h2= message.title
+          p= message.text
+          if currentUser
+            if currentUser.membership_status 
+              p #{message.user.fullName} | #{message.time}
+            if currentUser.admin 
+              form(action='/delete-message', method="post") 
+                input(type="hidden", name="messageid", value=message._id)
+                button.btn.btn-danger Delete
+  else 
+    p It seems there are no messages yet... Be the first!

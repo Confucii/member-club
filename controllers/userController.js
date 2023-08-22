@@ -46,6 +46,7 @@ exports.postSignUp = [
     });
 
     if (!errors.isEmpty()) {
+      console.log(errors.array());
       res.render("sign_up", { user: user, errors: errors.array() });
     } else {
       bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
@@ -82,3 +83,29 @@ exports.signOut = asyncHandler((req, res) => {
     res.redirect("/");
   });
 });
+
+exports.getJoinClub = asyncHandler((req, res) => {
+  res.render("join_club");
+});
+
+exports.postJoinClub = [
+  body("secret").trim().escape(),
+  asyncHandler(async (req, res) => {
+    let message;
+    if (req.body.secret === "twobananas") {
+      message = "You are in";
+      await User.findByIdAndUpdate(res.locals.currentUser.id, {
+        membership_status: true,
+      });
+    } else if (req.body.secret === "godofbananas") {
+      message = "You touched the godhead";
+      await User.findByIdAndUpdate(res.locals.currentUser.id, {
+        membership_status: true,
+        admin: true,
+      });
+    } else {
+      message = "We don't know of this secret";
+    }
+    res.render("join_club", { message: message });
+  }),
+];

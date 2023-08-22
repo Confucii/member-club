@@ -1,26 +1,29 @@
 extends layout 
 
-block content 
-  h2= title 
-  form(action="", method="post")
-    .form-group 
-      label(for="first-name") Name
-      input#first-name.form-control(type="text", name="firstName", value=(user ? user.name.first : ""), required="true") 
-    .form-group 
-      label(for="last-name") Surname
-      input#last-name.form-control(type="text", name="lastName", value=(user ? user.name.last : ""), required="true") 
-    .form-group 
-      label(for="username") Username
-      input#username.form-control(type="text", name="username", value=(user ? user.username : ""), required="true") 
-    .form-group 
-      label(for="password") Password
-      input#password.form-control(type="password", name="password",  required="true") 
-    .form-group 
-      label(for="confirm-password") Confirm Password
-      input#confirm-password.form-control(type="password", name="confirm-password", required="true") 
-    button.btn.btn-primary Submit 
-  if errors 
-    ul
-      each error in errors
-        li.text-danger!= error.msg
+block content
+  if !currentUser
+    h2= title 
+    form(action="", method="post")
+      .form-group 
+        label(for="first-name") Name
+        input#first-name.form-control(type="text", name="firstName", value=(user ? user.name.first : ""), required="true") 
+      .form-group 
+        label(for="last-name") Surname
+        input#last-name.form-control(type="text", name="lastName", value=(user ? user.name.last : ""), required="true") 
+      .form-group 
+        label(for="username") Username
+        input#username.form-control(type="text", name="username", value=(user ? user.username : ""), required="true") 
+      .form-group 
+        label(for="password") Password
+        input#password.form-control(type="password", name="password",  required="true") 
+      .form-group 
+        label(for="confirm-password") Confirm Password
+        input#confirm-password.form-control(type="password", name="confirm-password", required="true") 
+      button.btn.btn-primary Submit 
+    if errors 
+      ul
+        each error in errors
+          li.text-danger!= error.msg
+  else 
+    p You already have an account!
   

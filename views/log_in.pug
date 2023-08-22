@@ -1,15 +1,18 @@
 extends layout
 
 block content 
-  h1 Sign in 
+  if !currentUser
+    h1 Sign in 
 
-  form(action="", method="post")
-    .form-group 
-      label(for="username") Username
-      input.form-control#username(type="text", name="username")  
-    .form-group 
-      label(for="password") Password
-      input.form-control#password(type="password", name="password")  
-    button.btn.btn-primary Submit
-  if errors 
-    p Username or password is incorrect
+    form(action="", method="post")
+      .form-group 
+        label(for="username") Username
+        input.form-control#username(type="text", name="username")  
+      .form-group 
+        label(for="password") Password
+        input.form-control#password(type="password", name="password")  
+      button.btn.btn-primary Submit
+    if errors 
+      p.text-danger Username or password is incorrect
+  else 
+    p You are already logged in 

@@ -1,0 +1,14 @@
+extends layout 
+
+block content
+  if currentUser
+    h1 Join the club
+    form(action="", method="post") 
+      .form-group 
+        label(for="secret") Secret code 
+        input#secret.form-control(type="text", name="secret") 
+      button.btn.btn-primary Submit
+    if message 
+      p=message
+  else 
+    p You need to log in

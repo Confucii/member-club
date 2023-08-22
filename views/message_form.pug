@@ -1,0 +1,20 @@
+extends layout
+
+block content 
+  if currentUser
+    h1 New message
+    form(action="", method="post") 
+      .form-group 
+        label(for="title") Title 
+        input#title.form-control(type="text", name="title" value=(message ? message.title : ""))
+      .form-group 
+        label(for="text") Text 
+        input#text.form-control(type="text", name="text" value=(message ? message.text : "") required="true")
+      button.btn.btn-primary Submit 
+    
+    if errors 
+      ul
+        each error in errors
+          li.text-danger!= error.msg
+  else 
+    p Please sign in
