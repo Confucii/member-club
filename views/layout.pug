@@ -10,7 +10,7 @@ html
     header.override
       h1 Members Only
       .links 
-        if !user
+        if !currentUser
           a(href="/user/sign-up") Sign-up
           a(href="/user/sign-in") Sign-in
         else
